@@ -1,0 +1,6 @@
+#!/bin/bash
+CP=${HOME}/.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar:${HOME}/.m2/repository/ch/qos/logback/logback-classic/1.1.1/logback-classic-1.1.1.jar:${HOME}/.m2/repository/ch/qos/logback/logback-core/1.1.1/logback-core-1.1.1.jar:./src/main/resources/logback.xml:./target/scala-2.11/smartu-assembly-0.1.0.jar
+
+java -Dlog.level=INFO \
+     -cp ${CP} \
+     vortex.demo.smartu.MeterSimulator $*

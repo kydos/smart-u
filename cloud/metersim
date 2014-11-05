@@ -1,0 +1,25 @@
+#!/bin/bash
+
+ADDR=demo-eu.prismtech.com
+
+BASE_PORT=10000
+PORT_OFFSET=${RANDOM}%1000
+LOCAL_PORT=$((BASE_PORT+PORT_OFFSET))
+
+PUBLIC_DISCOVERY_PORT=7400
+DISCOVERY_LOCATOR=${ADDR}:${PUBLIC_DISCOVERY_PORT}
+
+
+CP=${HOME}/.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar:${HOME}/.m2/repository/ch/qos/logback/logback-classic/1.1.1/logback-classic-1.1.1.jar:${HOME}/.m2/repository/ch/qos/logback/logback-core/1.1.1/logback-core-1.1.1.jar:../src/main/resources/logback.xml:../target/scala-2.11/smartu-assembly-0.1.0.jar
+
+java -Dlog.level=INFO \
+     -cp ${CP} \
+     -Dddsi.network.transport=tcp \
+     -Dddsi.discovery.tcp.peers=${DISCOVERY_LOCATOR} \
+     -Dddsi.discovery.externalNetworkAddresses=none \
+     -Dddsi.data.externalNetworkAddresses=none \
+     -Dddsi.discovery.tcp.port=${LOCAL_PORT} \
+     vortex.demo.smartu.MeterSimulator $*
+
+
+

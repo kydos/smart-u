@@ -1,0 +1,43 @@
+module vortex {
+  module demo {
+    module smartu {
+
+      enum UtilityKind {
+	    ELECTRICITY,
+	    GAS,
+	    WATER
+      };
+      
+      struct Meter {
+	    string sn;
+	    UtilityKind utility;
+	    float reading;
+	    float error;
+      };            
+#pragma keylist Meter sn
+      
+      struct AnalyticsConfig {
+	    UtilityKind utility;
+	    short timeWindow; // in seconds
+      };
+#pragma keylist AnalyticsConfig utility
+
+      struct Index {
+	    string key;
+	    float value;
+      };
+
+      typedef sequence<Index> IndexSequence;
+
+      struct UtilityAnalytics {
+	    string scope;
+	    UtilityKind utility;
+	    IndexSequence indexes;
+      };
+#pragma keylist UtilityAnalytics scope
+
+    };
+  };
+};
+
+  
